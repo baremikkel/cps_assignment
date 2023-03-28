@@ -16,7 +16,7 @@ public class Controller {
 
     public static void main(String[] args) throws Exception {
         //URL url = new URL("https://api.zippopotam.us/DK/5000");
-        URL url = new URL("https://api.coingecko.com/api/v3/exchange_rates");
+        URL url = new URL("https://www.valutakurser.dk/ ");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
@@ -29,6 +29,7 @@ public class Controller {
         }
         br.close();
         System.out.println(content.toString());
+
     }
 
 
