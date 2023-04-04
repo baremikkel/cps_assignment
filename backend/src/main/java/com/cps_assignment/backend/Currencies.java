@@ -8,14 +8,17 @@ public class Currencies {
     private String symbol;
     private String flagName;
     private double currencyChange;
+
     private double actualValue;
     private String date;
 
     private ArrayList<Currencies> currenciesArrayList;
 
+
     public String GetSymbol() {
         return symbol;
     }
+
     public String GetName() {
         return currencyName;
     }
