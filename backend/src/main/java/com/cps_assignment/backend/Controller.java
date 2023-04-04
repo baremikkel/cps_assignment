@@ -16,7 +16,7 @@ public class Controller {
 
     public static void main(String[] args) throws Exception {
         //URL url = new URL("https://api.zippopotam.us/DK/5000");
-        URL url = new URL("https://www.valutakurser.dk/ ");
+        /*URL url = new URL("https://www.valutakurser.dk/ ");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
@@ -28,7 +28,9 @@ public class Controller {
             content.append(inputLine);
         }
         br.close();
-        System.out.println(content.toString());
+        System.out.println(content.toString());*/
+        HTTPSniffer sniffer = new HTTPSniffer();
+        sniffer.sendGETRequest("https://www.valutakurser.dk/");
 
     }
 
