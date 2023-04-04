@@ -1,34 +1,52 @@
 package com.cps_assignment.backend;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Currencies {
+    private String currencyName;
     private String symbol;
-    private String name;
-    private String flag;
+    private String flagName;
     private double currencyChange;
-    private double currencyRate;
-    private Timestamp time;
+    private double actualValue;
+    private String date;
+
+    private ArrayList<Currencies> currenciesArrayList;
+
     public String GetSymbol() {
         return symbol;
     }
     public String GetName() {
-        return name;
+        return currencyName;
     }
 
-    public String getFlag() {
-        return flag;
+    public String getFlagName() {
+        return flagName;
     }
 
     public double getCurrencyChange() {
         return currencyChange;
     }
 
-    public double getCurrencyRate() {
-        return currencyRate;
+    public double getActualValue() {
+        return actualValue;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public String getDate() {
+        return date;
     }
+
+    @Override
+    public String toString() {
+        return "Currencies{" +
+                "currencyName='" + currencyName + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", flagName='" + flagName + '\'' +
+                ", currencyChange=" + currencyChange +
+                ", actualValue=" + actualValue +
+                ", date='" + date + '\'' +
+                '}';
+    }
+
+
 }

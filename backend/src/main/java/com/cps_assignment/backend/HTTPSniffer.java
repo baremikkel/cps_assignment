@@ -25,6 +25,8 @@ public class HTTPSniffer {
             content.append(inputLine);
         }
         br.close();
-        System.out.println(content.toString());
+        htmlDump = content.toString();
+        stripper = DataStripper.getInstance();
+        stripper.stripHTML(htmlDump);
     }
 }
