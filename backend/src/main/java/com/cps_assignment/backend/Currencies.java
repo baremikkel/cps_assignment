@@ -9,9 +9,11 @@ public class Currencies {
     private double currencyChange;
     private double currencyRate;
     private Timestamp time;
+
     public String GetSymbol() {
         return symbol;
     }
+
     public String GetName() {
         return name;
     }
