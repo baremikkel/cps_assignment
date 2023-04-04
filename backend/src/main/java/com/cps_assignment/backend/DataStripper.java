@@ -3,9 +3,17 @@ package com.cps_assignment.backend;
 
 public class DataStripper {
 
-    private String htmlInput;
+    private static DataStripper instance;
+    private Currencies currencies;
 
-    public DataStripper(String htmlInput) {
-        this.htmlInput = htmlInput;
+    public String stripHTML(){
+        
+        return "";
+    }
+
+    public static DataStripper getInstance(){
+        if (instance == null)
+            instance = new DataStripper();
+        return instance;
     }
 }
