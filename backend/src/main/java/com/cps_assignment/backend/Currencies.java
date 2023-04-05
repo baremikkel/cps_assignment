@@ -7,12 +7,11 @@ public class Currencies {
     private String currencyName;
     private String symbol;
     private String flagName;
-    private double currencyChange;
+    private double currencyChange; //Hvor mange procent valutaen er faldet med siden sidste datapoint
+    private double actualValue; //# danske kroner for 100 af currency
+    private String date; //tid hvornår data blev opdateret
 
-    private double actualValue;
-    private String date;
-
-    private ArrayList<Currencies> currenciesArrayList;
+    private ArrayList<Currencies> currenciesArrayList = new ArrayList<>();
 
 
     public String GetSymbol() {
@@ -39,16 +38,18 @@ public class Currencies {
         return date;
     }
 
+    public ArrayList<Currencies> getCurrenciesArrayList() {
+        return currenciesArrayList;
+    }
+
     @Override
     public String toString() {
-        return "Currencies{" +
-                "currencyName='" + currencyName + '\'' +
+        return  "currencyName='" + currencyName + '\'' +
                 ", symbol='" + symbol + '\'' +
                 ", flagName='" + flagName + '\'' +
                 ", currencyChange=" + currencyChange +
                 ", actualValue=" + actualValue +
-                ", date='" + date + '\'' +
-                '}';
+                ", date='" + date + '\'';
     }
 
 

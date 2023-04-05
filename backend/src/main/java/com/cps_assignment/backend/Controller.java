@@ -14,35 +14,10 @@ import java.net.URL;
 @RestController
 public class Controller {
 
-    public static void main(String[] args) throws Exception {
-        //URL url = new URL("https://api.zippopotam.us/DK/5000");
-        /*URL url = new URL("https://www.valutakurser.dk/ ");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = br.readLine()) != null) {
-            content.append(inputLine);
-        }
-        br.close();
-        System.out.println(content.toString());*/
+    public static void main(String[] args) throws Exception { // Pilot
         HTTPSniffer sniffer = new HTTPSniffer();
         sniffer.sendGETRequest("https://www.valutakurser.dk/");
 
-    }
-
-
-    @RequestMapping("/")
-    public String controllerC(){
-        return "";
-    }
-
-    @GetMapping("/goodbye")
-    public String goodbye() {
-        return "Goodbye";
     }
 
 }
