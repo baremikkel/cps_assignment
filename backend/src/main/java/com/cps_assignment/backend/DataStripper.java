@@ -5,10 +5,13 @@ import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.sql.SQLException;
+
 public class DataStripper {
 
     private static DataStripper instance;
     private Currencies currencies = new Currencies();
+    private DBCommunicator db;
 
     public void stripHTML(String dump) { //Tager kun det element hvor hvad vi skal bliver lagret
         Document doc = Jsoup.parse(dump);
@@ -30,15 +33,21 @@ public class DataStripper {
         Gson gson = new Gson();
         for (int i = 0; i < strings.length - 1; i++) {
             strings[i] = strings[i] + "}";
-            storeInCurrenciesArray(gson, strings[i]);
-            System.out.println(currencies.getCurrenciesArrayList().get(i).toString());
+            addToDatabase(gson, strings[i]);
+
         }
         System.out.println(currencies.getCurrenciesArrayList().size());
-
     }
 
-    private void storeInCurrenciesArray(Gson gson, String s) { //tilføjer data til arraylist via gson
-        currencies.getCurrenciesArrayList().add(gson.fromJson(s, Currencies.class));
+    private void addToDatabase(Gson gson, String s) { //tilføjer data til databasen
+        currencies = gson.fromJson(s, Currencies.class);
+        try {
+            db = DBCommunicator.getDatabase();
+            db.UpdateTable("INSERT IGNORE INTO Currencies (name, symbol) VALUES ("+ currencies.GetName()+", "+currencies.GetSymbol()+");");
+            //INSERT INTO Currencies(name, symbol) VALUES ('test', 'test') ON CONFLICT (name, symbol) DO NOTHING ;
+        } catch (SQLException e) {
+            System.out.println("Fuck you");
+        }
     }
 }
 
