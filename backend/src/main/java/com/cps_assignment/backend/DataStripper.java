@@ -43,10 +43,11 @@ public class DataStripper {
         currencies = gson.fromJson(s, Currencies.class);
         try {
             db = DBCommunicator.getDatabase();
-            db.UpdateTable("INSERT IGNORE INTO Currencies (name, symbol) VALUES ("+ currencies.GetName()+", "+currencies.GetSymbol()+");");
-            //INSERT INTO Currencies(name, symbol) VALUES ('test', 'test') ON CONFLICT (name, symbol) DO NOTHING ;
+            System.out.println(currencies.toString());
+            db.UpdateTable("INSERT INTO currencies (currencyname, currencysymbol) VALUES ('"+ currencies.GetName()+"', '"+currencies.GetSymbol()+"') ON CONFLICT (currencyname) DO NOTHING;");
+            db.UpdateTable("INSERT INTO exchangeRates (currencyid, exchangevalue, lastexchange) VALUES(( SELECT currencyid FROM currencies WHERE currencyname = '"+ currencies.GetName() +"'), '"+ currencies.getActualValue() +"', '" +currencies.getDate() +"' ) ON CONFLICT (lastexchange) DO NOTHING;");
         } catch (SQLException e) {
-            System.out.println("Fuck you");
+            System.out.println("Fuck you thats why: " + e.getMessage());
         }
     }
 }

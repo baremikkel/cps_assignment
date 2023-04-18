@@ -30,6 +30,13 @@ public class DBCommunicator {
         }
 
     }
+    public void SelectFromTable(String cmd) {
+        /*try {
+
+        } catch (SQLException e) {
+            System.out.println("Here is why you can't get data: " + e.getMessage() + " Good luck you need it!");
+        }*/
+    }
 
     protected static DBCommunicator getDatabase() throws SQLException {
         if (db == null) {
