@@ -11,8 +11,6 @@ public class Currencies {
     private double actualValue; //# danske kroner for 100 af currency
     private String date; //tid hvornår data blev opdateret
 
-    private ArrayList<Currencies> currenciesArrayList = new ArrayList<>();
-
 
     public String GetSymbol() {
         return symbol;
@@ -38,13 +36,9 @@ public class Currencies {
         return date;
     }
 
-    public ArrayList<Currencies> getCurrenciesArrayList() {
-        return currenciesArrayList;
-    }
-
     @Override
     public String toString() {
-        return  "currencyName='" + currencyName + '\'' +
+        return "currencyName='" + currencyName + '\'' +
                 ", symbol='" + symbol + '\'' +
                 ", flagName='" + flagName + '\'' +
                 ", currencyChange=" + currencyChange +
