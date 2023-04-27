@@ -5,15 +5,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 @RestController
 public class JSConnection { //Prøver at skabe en connection
 
    // @CrossOrigin(origins = "localhost:5500")
     @GetMapping("/data")
-    public MyData getData() {
+    public MyData getData() throws SQLException {
         MyData data = new MyData();
-        DataStripper stripper = DataStripper.getInstance();
-        data.setMessage("Hello from Java!");
+        DBCommunicator db = DBCommunicator.getDatabase();
+        StringBuilder message = new StringBuilder();
+        try {
+            ResultSet currencies = db.SelectFromTable("*", "currencies");
+            ResultSet exchangerates = db.SelectFromTable("*", "exchangerates");
+            while (currencies.next() && exchangerates.next()) {
+                message.append(currencies.getString("currencyname"));
+                message.append(" ");
+                message.append(exchangerates.getDouble("exchangevalue"));
+                message.append(" "+exchangerates.getString("lastexchange"));
+                message.append(System.getProperty("Line.separator"));
+            }
+
+        } catch (SQLException e) {
+
+        }
+        data.setMessage(message.toString());
         return data;
     }
 

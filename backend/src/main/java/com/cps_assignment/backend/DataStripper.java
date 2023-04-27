@@ -16,6 +16,7 @@ public class DataStripper {
     private String message;
 
     public void stripHTML(String dump) { //Tager kun det element hvor hvad vi skal bliver lagret
+        System.out.println("Stripping dump");
         Document doc = Jsoup.parse(dump);
         String s = doc.getElementById("__NEXT_DATA__").toString();
         // System.out.println(s);
@@ -52,6 +53,7 @@ public class DataStripper {
         try {
             db = DBCommunicator.getDatabase();
             db.UpdateTable("INSERT INTO currencies (currencyname, currencysymbol) VALUES ('" + currencies.GetName() + "', '" + currencies.GetSymbol() + "') ON CONFLICT (currencyname) DO NOTHING;");
+            db.UpdateTable("INSERT INTO exchangeRates (currencyid, exchangevalue, lastexchange) VALUES(( SELECT currencyid FROM currencies WHERE currencyname = '"+ currencies.GetName() +"'), '"+ currencies.getActualValue() +"', '" +currencies.getDate() +"' );");
         } catch (SQLException e) {
             System.out.println("Fuck you thats why: " + e.getMessage());
         }
