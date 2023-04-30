@@ -1,0 +1,35 @@
+body{
+    background-image: url(../resources/images/currencybackground.jpeg);
+    background-color: black;
+    background-position: top;
+    background-size: cover;
+}
+
+div{
+    text-align: center;
+    padding: 20px;
+}
+
+a{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    text-decoration: none;
+    font-size: 42px;
+}
+
+input{
+    width: 40%;
+    height: 20px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}

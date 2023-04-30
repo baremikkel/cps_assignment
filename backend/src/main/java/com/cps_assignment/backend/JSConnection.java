@@ -17,7 +17,7 @@ public class JSConnection { //Prøver at skabe en connection
         MyData data = new MyData();
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
-        try {
+        /*try {
             ResultSet currencies = db.SelectFromTable("*", "currencies");
             ResultSet exchangerates = db.SelectFromTable("*", "exchangerates");
             while (currencies.next() && exchangerates.next()) {
@@ -32,6 +32,9 @@ public class JSConnection { //Prøver at skabe en connection
 
         }
         data.setMessage(message.toString());
+
+         */
+        data.setMessage("BEANSSSS");
         return data;
     }
 

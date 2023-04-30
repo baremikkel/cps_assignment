@@ -9,7 +9,7 @@ public class DBCommunicator {
 
     public DBCommunicator() throws SQLException { //Når man initiere communicatoren forbinder den til db.
         try {
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "Olsen2001");
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "Forward526040");
             System.out.println("Connected");
         } catch (SQLException exception) {
             System.out.println("fuck you: " + exception.getMessage());
