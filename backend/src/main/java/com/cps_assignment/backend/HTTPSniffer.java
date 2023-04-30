@@ -13,8 +13,6 @@ public class HTTPSniffer {
     private DataStripper stripper;
 
     public void sendGETRequest(String urlString) throws Exception { //Sender en GET Request fra det url som er givet som parameter
-        //Hele HTML dumpen bliver så sendt videre til vores data stripper
-        System.out.println("Sending Request");
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -27,8 +25,10 @@ public class HTTPSniffer {
             content.append(inputLine);
         }
         br.close();
-        System.out.println("Recived request, and sending to stripper");
+        System.out.println(content.toString());
+
+       /* System.out.println("Recived request, and sending to stripper");
         stripper = DataStripper.getInstance();
-        stripper.stripHTML(content.toString());
+        stripper.stripHTML(content.toString());*/
     }
 }
