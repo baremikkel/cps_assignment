@@ -3,11 +3,15 @@ body{
     background-color: black;
     background-position: top;
     background-size: cover;
+    justify-items: center;
 }
 
 div{
     text-align: center;
     padding: 20px;
+    align-self: center;
+    justify-self: center;
+    
 }
 
 a{
@@ -19,7 +23,6 @@ a{
 
 input{
     width: 40%;
-    height: 20px;
     background-color: black;
     color: white;
     border: 1px solid white;
@@ -27,9 +30,6 @@ input{
     padding: 10px;
 }
 
-h1{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: white;
-    text-align: center;
-    padding: 10px;
+canvas{
+    -ms-flex-align: center;
 }
