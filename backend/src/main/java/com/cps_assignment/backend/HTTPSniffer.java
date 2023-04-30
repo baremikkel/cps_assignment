@@ -12,6 +12,9 @@ public class HTTPSniffer {
     private String htmlDump;
     private DataStripper stripper;
 
+
+    public void decideOnEndpoint() {
+    }
     public void sendGETRequest(String urlString) throws Exception { //Sender en GET Request fra det url som er givet som parameter
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -31,4 +34,6 @@ public class HTTPSniffer {
         stripper = DataStripper.getInstance();
         stripper.stripHTML(content.toString());*/
     }
+
+    private void getLatest(String urlString) {}
 }

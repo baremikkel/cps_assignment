@@ -15,7 +15,7 @@ public class DataStripper {
     private DBCommunicator db;
     private String message;
 
-    public void stripHTML(String dump) { //Tager kun det element hvor hvad vi skal bliver lagret
+    public void stripJSON(String dump) { //Tager kun det element hvor hvad vi skal bliver lagret
         System.out.println("Stripping dump");
         Document doc = Jsoup.parse(dump);
         String s = doc.getElementById("__NEXT_DATA__").toString();
