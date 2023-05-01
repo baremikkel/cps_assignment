@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.TimeZone;
 
 public class readLastTimestamp {
     private String API_KEY = "2f68cc286ef546b2aa09fbac10e33503";
@@ -16,39 +19,45 @@ public class readLastTimestamp {
     }
 
     public boolean checkLastTimestamp(String filename) {
-        System.out.println(System.currentTimeMillis());
-        long timestamp = convertToUTC(System.currentTimeMillis()) / 1000;
+        long timestampNow = convertToUTC(System.currentTimeMillis());
         long lastTimestamp = Long.parseLong(readFromFile(filename));
-        //if (timestamp > lastTimestamp) {
-        System.out.println("Updates file");
-        // updateFile(filename, timestamp);
-        //Calls API
-        HTTPSniffer sniffer = new HTTPSniffer();
-        try {
-            //Update so that it uses latest if the date is the same but if they are different it uses historical
-            sniffer.sendGETRequest("https://openexchangerates.org/api/historical/2023-04-30.json?app_id=" + API_KEY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // } else
-        System.out.println("Not update file");
+        if (timestampNow > lastTimestamp) {
+            System.out.println("Updates file");
+            compareDateToMillis(timestampNow, lastTimestamp);
+            updateFile(filename, timestampNow);
+            //Calls API
+        } else
+
+            System.out.println("Not update file");
         return true;
     }
 
-    private void compareDates() {
+    private void compareDateToMillis(long timestampNow, long lastTimestamp) {
+        LocalDate startDate = Instant.ofEpochMilli(lastTimestamp).atZone(ZoneId.of("UTC")).toLocalDate();
+        LocalDate endDate = Instant.ofEpochMilli(timestampNow+86400000).atZone(ZoneId.of("UTC")).toLocalDate();
+        HTTPSniffer sniffer = new HTTPSniffer();
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            try {
+                sniffer.sendGETRequest("https://openexchangerates.org/api/historical/"+date+".json?app_id=" + API_KEY, String.valueOf(date));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         /*
         Vi tjekker om datoen passer overens med UTC hvis den datoen er den samme så sker der ikke noget,
         hvis der er x antal dage imellem datoerne så kalder vi historical endpoint på datoen og gemmer i databasen
         på den måde slipper vi for at 1 lave forskellige metoder.
- */
+        */
     }
 
-    private long convertToUTC(long timestamp) {
-        OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneOffset.ofHours(2))
+    private long convertToUTC(long timestampNow) {
+        OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(timestampNow), ZoneOffset.ofHours(2))
                 .withOffsetSameInstant(ZoneOffset.UTC)
                 .truncatedTo(ChronoUnit.DAYS);
         System.out.println(offsetDateTime.toInstant().toEpochMilli());
-        return offsetDateTime.toInstant().toEpochMilli();
+        return offsetDateTime.toInstant().toEpochMilli(); //nuverende utc tid i dage
     }
 
     public String readFromFile(String filename) {
@@ -59,7 +68,6 @@ public class readLastTimestamp {
 
             while (myReader.hasNextLine()) {
                 data = myReader.nextLine();
-                //System.out.println(data);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
