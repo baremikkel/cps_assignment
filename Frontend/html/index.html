@@ -5,6 +5,7 @@
     <title>Java and JavaScript Example</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../javascript/javaConnection.js"></script>
+    <script src="../javascript/searchbar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <link rel="stylesheet" href="../css/index.css">
 </head>
@@ -17,7 +18,9 @@
 
     <div>
         <br>
-        <input name="searchBar" type="text" placeholder="Search a currency">
+        <input name="searchBar" type="text" placeholder="Search a currency" list="currencies">
+        <datalist id="currencies">
+        </datalist>
     </div>
     <!-- <p id="message"></p> -->
     <br>

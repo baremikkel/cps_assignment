@@ -52,7 +52,7 @@ public class JSConnection { //Prøver at skabe en connection
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
-            ResultSet symbols = db.SelectFromTable("currencysymbol", "currencies");
+            ResultSet symbols = db.SelectFromTable("currencysymbol", "currencies ORDER BY currencysymbol");
             while (symbols.next()) {
                 message.append(symbols.getString("currencysymbol"));
                 message.append(" ");

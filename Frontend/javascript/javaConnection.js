@@ -2,7 +2,8 @@ function getSymbols() {
     $.ajax({
         url: "http://localhost:8080/symbols",
         success: function(data) {
-            $("#currency").html(data.message);
+            getSymbolArr(data.message)
+            //$("#currency").html(data.message);
         }
     });
 }
@@ -30,4 +31,5 @@ $(document).ready(function() {
     getSymbols();
     getRates();
     getDates();
+    //addOptions()
 });
