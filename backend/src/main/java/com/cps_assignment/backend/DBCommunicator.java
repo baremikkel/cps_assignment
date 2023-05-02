@@ -35,11 +35,11 @@ public class DBCommunicator {
         return set;
     }
 
-    public ResultSet SelectFromTableWithWhereCondition(String column, String table, String whereCondition) {
+    public ResultSet SelectFromTableWithCondition(String column, String table, String condition, String currency) {
         // Virker på samme måde som metoden over, men har en WHERE condition i tilfældet man har brug for det
         ResultSet set = null;
         try {
-            set = conn.createStatement().executeQuery("SELECT "+column+" FROM " + table+ " WHERE " + whereCondition);
+            set = conn.createStatement().executeQuery("SELECT "+column+" FROM " + table + condition + currency +"'");
 
         } catch (SQLException e) {
             System.out.println("Here is why you can't get data: " + e.getMessage() + " Good luck you need it!");
