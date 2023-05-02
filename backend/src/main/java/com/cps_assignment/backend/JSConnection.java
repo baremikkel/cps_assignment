@@ -1,8 +1,6 @@
 package com.cps_assignment.backend;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.ResultSet;
@@ -12,24 +10,20 @@ import java.sql.SQLException;
 public class JSConnection { //Prøver at skabe en connection
 
    // @CrossOrigin(origins = "localhost:5500")
-    @GetMapping("/data")
-    public MyData getData() throws SQLException {
-        MyData data = new MyData();
+    @GetMapping("/exchangedates")
+    public SendData getDates() throws SQLException {
+        SendData data = new SendData();
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
-        /*try {
-            ResultSet currencies = db.SelectFromTable("*", "currencies");
-            ResultSet exchangerates = db.SelectFromTable("*", "exchangerates");
-            while (currencies.next() && exchangerates.next()) {
-                message.append(currencies.getString("currencyname"));
+        try {
+            ResultSet values = db.SelectFromTableWithCondition("lastexchange", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", "DKK");
+            //ResultSet values = db.SelectFromTable("lastexchange", "exchangerates");
+            while (values.next()) {
+                message.append(values.getString("lastexchange"));
                 message.append(" ");
-                message.append(exchangerates.getDouble("exchangevalue"));
-                message.append(" "+exchangerates.getString("lastexchange"));
-                message.append(System.getProperty("Line.separator"));
             }
-
         } catch (SQLException e) {
-
+            e.getMessage();
         }
         data.setMessage(message.toString());
 
@@ -38,7 +32,40 @@ public class JSConnection { //Prøver at skabe en connection
         return data;
     }
 
-    public static class MyData {
+    @GetMapping("/exchangevalues")
+    public SendData getExchangevalues() throws SQLException {
+        SendData data = new SendData();
+        DBCommunicator db = DBCommunicator.getDatabase();
+        StringBuilder message = new StringBuilder();
+        try {
+            ResultSet values = db.SelectFromTableWithCondition("exchangevalue", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", "DKK");
+            while (values.next()) {
+                message.append(values.getString("exchangevalue"));
+                message.append(" ");
+            }
+        } catch (SQLException ignored) { }
+        data.setMessage(message.toString());
+        return data;
+    }
+
+    @GetMapping("/symbols")
+    public SendData getCurrencySymbols() throws SQLException {
+        SendData data = new SendData();
+        DBCommunicator db = DBCommunicator.getDatabase();
+        StringBuilder message = new StringBuilder();
+        try {
+            ResultSet symbols = db.SelectFromTable("currencysymbol", "currencies");
+            while (symbols.next()) {
+                message.append(symbols.getString("currencysymbol"));
+                message.append(" ");
+            }
+        } catch (SQLException ignored) { }
+        data.setMessage(message.toString());
+        return data;
+    }
+
+
+    public static class SendData {
         private String message;
 
         public String getMessage() {
