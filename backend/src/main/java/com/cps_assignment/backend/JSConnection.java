@@ -26,8 +26,6 @@ public class JSConnection { //Prøver at skabe en connection
             e.getMessage();
         }
         data.setMessage(message.toString());
-
-         */
         data.setMessage("BEANSSSS");
         return data;
     }
