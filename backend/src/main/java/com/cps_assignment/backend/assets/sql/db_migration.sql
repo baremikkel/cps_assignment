@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS public;
-    CREATE DATABASE public;
-        USE public;
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
+\c test
 
 CREATE TABLE currencies (
     currencyId SERIAL PRIMARY KEY,
