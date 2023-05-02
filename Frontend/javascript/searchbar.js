@@ -1,13 +1,15 @@
 let arr;
+let datesArr
+let ratesArr
+
 
 function getSymbolArr(i) {
-    var cook = i
-    arr = cook.split(" ");
+    var s = i
+    arr = s.split(" ");
     console.log(arr)
 
     const datalist = document.getElementById('currencies');
     const option = document.createElement('option');
-    console.log(arr)
     for(let i = 0; i < arr.length; i++)
     {
         //No clue why all these are needed but it don't work without either
@@ -16,3 +18,14 @@ function getSymbolArr(i) {
         datalist.appendChild(option);
     } 
 }
+
+function getDatesArr(i) {
+    var s = i
+    datesArr = s.split(" ")
+}
+function getRatesArr(i) {
+    var s = i
+    ratesArr = s.split(" ")
+}
+
+

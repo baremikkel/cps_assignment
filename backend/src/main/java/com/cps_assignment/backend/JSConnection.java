@@ -1,6 +1,8 @@
 package com.cps_assignment.backend;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.ResultSet;
@@ -8,6 +10,7 @@ import java.sql.SQLException;
 
 @RestController
 public class JSConnection { //Prøver at skabe en connection
+    private String choice = "";
 
    // @CrossOrigin(origins = "localhost:5500")
     @GetMapping("/exchangedates")
@@ -16,17 +19,17 @@ public class JSConnection { //Prøver at skabe en connection
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
-            ResultSet values = db.SelectFromTableWithCondition("lastexchange", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", "DKK");
-            //ResultSet values = db.SelectFromTable("lastexchange", "exchangerates");
-            while (values.next()) {
-                message.append(values.getString("lastexchange"));
-                message.append(" ");
-            }
+                ResultSet values = db.SelectFromTableWithCondition("lastexchange", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
+                //ResultSet values = db.SelectFromTable("lastexchange", "exchangerates");
+                while (values.next()) {
+                    message.append(values.getString("lastexchange"));
+                    message.append(" ");
+                }
+                data.setMessage(message.toString());
         } catch (SQLException e) {
             e.getMessage();
         }
-        data.setMessage(message.toString());
-        data.setMessage("BEANSSSS");
+
         return data;
     }
 
@@ -36,13 +39,16 @@ public class JSConnection { //Prøver at skabe en connection
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
-            ResultSet values = db.SelectFromTableWithCondition("exchangevalue", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", "DKK");
-            while (values.next()) {
-                message.append(values.getString("exchangevalue"));
-                message.append(" ");
+            if (choice != "") {
+                ResultSet values = db.SelectFromTableWithCondition("exchangevalue", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
+                while (values.next()) {
+                    message.append(values.getString("exchangevalue"));
+                    message.append(" ");
             }
+                data.setMessage(message.toString());
+            } else
+                data.setMessage("0");
         } catch (SQLException ignored) { }
-        data.setMessage(message.toString());
         return data;
     }
 
@@ -60,6 +66,13 @@ public class JSConnection { //Prøver at skabe en connection
         } catch (SQLException ignored) { }
         data.setMessage(message.toString());
         return data;
+    }
+
+    @PostMapping("/wantedSymbol")
+    public String retrieveChosenOption(@RequestBody String data) {
+        choice = data;
+        ReadLastTimestamp r = new ReadLastTimestamp();
+     return "success";
     }
 
 
