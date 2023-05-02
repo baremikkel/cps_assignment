@@ -3,8 +3,6 @@ package com.cps_assignment.backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @Import(CorsConfig.class)
@@ -16,6 +14,6 @@ public class Controller {
         SpringApplication.run(Controller.class, args);
             HTTPSniffer sniffer = new HTTPSniffer();
             //sniffer.sendGETRequest("https://openexchangerates.org/api/latest.json?app_id="+API_KEY);
-            readLastTimestamp r = new readLastTimestamp();
+            ReadLastTimestamp r = new ReadLastTimestamp();
     }
 }
