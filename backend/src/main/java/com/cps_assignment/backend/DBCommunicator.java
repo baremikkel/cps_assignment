@@ -4,12 +4,16 @@ import java.sql.*;
 
 public class DBCommunicator {
     private Connection conn = null;
+    private String dbname = "cps";
+    private String url = "jdbc:postgresql://localhost:5432/postgres";
+    private String user = "postgres";
+    private String password = "willItWork";
 
     protected static DBCommunicator db;
 
     public DBCommunicator() throws SQLException { //Når man initiere communicatoren forbinder den til db.
         try {
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "Olsen2001");
+            conn = DriverManager.getConnection(url, user, "Olsen2001");
             System.out.println("Connected");
         } catch (SQLException exception) {
             System.out.println("fuck you: " + exception.getMessage());
@@ -52,5 +56,55 @@ public class DBCommunicator {
             db = new DBCommunicator();
         }
         return db;
+    }
+
+    protected void integrateDataBase() {
+        Boolean dbExists;
+        String createFunction = "CREATE OR REPLACE FUNCTION checkExistence(dbname text)\n" +
+                "RETURNS boolean AS $$\n" +
+                "BEGIN\n" +
+                "RETURN EXISTS (SELECT FROM pg_catalog.pg_database\n" +
+                "WHERE datname = "+ dbname +");\n" +
+                "END;\n" +
+                "$$ LANGUAGE plpgsql;";
+
+        String queryFunction = "{ ? = call checkExistence(?) }";
+
+        try { //tries to create a sql function that lets us check for already existing databases
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery(createFunction);
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create PL/pgSQL function" + e);
+        }
+
+        try { //tries to find a database named the same as dbName
+            CallableStatement stmt = conn.prepareCall(queryFunction);
+            stmt.setString(1, dbname);
+            stmt.registerOutParameter(2, Types.BOOLEAN);
+            stmt.execute();
+            dbExists = stmt.getBoolean(2);
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not call PL/pgSQL function" + e);
+        }
+
+        if (dbExists == false) { //if there was no database with that name, we create one
+            String createDbQuery = "CREATE DATABASE " + dbname;
+
+            try {
+                Class.forName("org.postgresql.Driver"); //loads database connection driver
+                conn = DriverManager.getConnection(url, user, password);
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(createDbQuery);
+                System.out.println("Database named "+ dbname +" was created successfully!");
+
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException("Could not load db connection drivvers" + e);
+            } catch (SQLException e) {
+                throw new RuntimeException("Could not connect" + e);
+            }
+        } else {
+            System.out.println("You already have a database named " + dbname +"!");
+        }
+        //now we have the database created, we need to create the tables, pog champ almost there!
     }
 }
