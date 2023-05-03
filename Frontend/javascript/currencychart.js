@@ -1,42 +1,52 @@
+var myChart;
+var borderColor = [];
+var backgroundColor = [];
 
-var xValues = datesArr;
-var yValues = ratesArr;
+function createChart() {
+  /*document.getElementById('myChart').innerHTML = ""
+  var newChart = document.createElement("canvas")
+  newChart.id = "myChart"
+  newChart.style = "width:100%;max-width:800px"
+  document.getElementById('canvas_div').appendChild(newChart)*/
+  if (myChart)
+    myChart.destroy()
+  if (datesArr != null) {
+    for (var i = 0; i < ratesArr.length; i++) {
+      if (i > 0) {
+        if (ratesArr[i] >= ratesArr[i + 1]) {
 
- 
+          borderColor.push('#20df4f');
+          backgroundColor.push('#20df4f')
+          
+        } else {
+          borderColor.push('red');
+          backgroundColor.push('#red')
+        }
+      }
+    }
+  }
   var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'bar',
+  myChart = new Chart(ctx, {
+    type: 'line',
     data: {
-      labels: xValues,
+      labels: datesArr,
       datasets: [{
-        label: '# of Votes',
-        data: yValues,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
+        label: '1$ in chosen currency',
+        data: ratesArr,
+        borderColor: borderColor,
+        pointRadius: 0.2
       }]
     },
     options: {
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            precision: 1
           }
         }]
       }
     }
   });
+}
+

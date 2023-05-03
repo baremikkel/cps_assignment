@@ -6,7 +6,6 @@ let ratesArr
 function getSymbolArr(i) {
     var s = i
     arr = s.split(" ");
-    console.log(arr)
 
     const datalist = document.getElementById('currencies');
     const option = document.createElement('option');
@@ -20,12 +19,15 @@ function getSymbolArr(i) {
 }
 
 function getDatesArr(i) {
+    datesArr = null;
     var s = i
     datesArr = s.split(" ")
 }
 function getRatesArr(i) {
+    ratesArr = null
     var s = i
     ratesArr = s.split(" ")
+    console.log(ratesArr)
 }
 
 
