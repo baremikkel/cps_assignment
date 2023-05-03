@@ -21,7 +21,7 @@ public class ReadLastTimestamp {
         checkLastTimestamp("backend/src/main/java/com/cps_assignment/backend/assets/last_timestamp.txt");
     }
 
-    public boolean checkLastTimestamp(String filename) {
+    public void checkLastTimestamp(String filename) {
         //It then checks if the current time and the time from the textfile is the same and then desides if the api should be called or not
         long timestampNow = convertMillisToUTC(System.currentTimeMillis());
         long lastTimestamp = Long.parseLong(readFromFile(filename));
@@ -29,8 +29,7 @@ public class ReadLastTimestamp {
             convertMillisToUTCDate(timestampNow, lastTimestamp);
             updateFile(filename, timestampNow);
         } else
-            System.out.println("Not update file");
-        return true;
+            System.out.println("Last_timestamp.txt is already up to date!");
     }
 
     private long convertMillisToUTC(long timestampNow) {
@@ -80,9 +79,9 @@ public class ReadLastTimestamp {
     private void updateFile(String filename, long lastTimestamp) {
         try {
             FileWriter myWriter = new FileWriter(filename);
-            myWriter.write(lastTimestamp + "");
+            myWriter.write(String.valueOf(lastTimestamp)); //should be a string
             myWriter.close();
-            System.out.println("Successfully wrote to the file. " + lastTimestamp);
+            System.out.println("Successfully wrote timestamp: " + lastTimestamp + " to last_timestamp.txt.");
         } catch (IOException e) {
             e.printStackTrace();
         }
