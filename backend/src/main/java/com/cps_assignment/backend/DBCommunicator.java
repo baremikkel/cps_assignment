@@ -7,13 +7,13 @@ public class DBCommunicator {
     private String dbname = "cps";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String user = "postgres";
-    private String password = "willItWork";
+    private String password = "Olsen2001";
 
     protected static DBCommunicator db;
 
     public DBCommunicator() throws SQLException { //Når man initiere communicatoren forbinder den til db.
         try {
-            conn = DriverManager.getConnection(url, user, "Olsen2001");
+            conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connected");
         } catch (SQLException exception) {
             System.out.println("fuck you: " + exception.getMessage());

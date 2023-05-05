@@ -28,6 +28,7 @@ public class Controller {
                 String data = myReader.nextLine();
                 db.UpdateTable(data);
             }
+            System.out.println("Out of loop");
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Seeding file db_exchangerates_table.sql not found.");
