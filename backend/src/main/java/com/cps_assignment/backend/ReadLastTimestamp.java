@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author bare.mikkel, tiomann99
  */
 public class ReadLastTimestamp {
-    private String API_KEY = "2f68cc286ef546b2aa09fbac10e33503";
+    private String API_KEY = "6a923f87ddbd476b8889e32091ad40ee"; //2f68cc286ef546b2aa09fbac10e33503
     private int ONE_DAY_IN_MILLIS = 86400000;
 
     public ReadLastTimestamp() {
