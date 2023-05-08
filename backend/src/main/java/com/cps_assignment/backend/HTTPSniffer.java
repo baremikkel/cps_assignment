@@ -49,7 +49,7 @@ public class HTTPSniffer {
     }
 
     private void addToDatabase(String key, double rate) {
-        //Adds the data to the data base, and is set up in the way if a new currency is supported in the api the database won't have problems storing the data
+        //Adds the data to the database, and is set up in the way if a new currency is supported in the api the database won't have problems storing the data
         try {
             db = DBCommunicator.getDatabase();
             db.UpdateTable("INSERT INTO currencies (currencysymbol) VALUES ('"+ key +"') ON CONFLICT (currencysymbol) DO NOTHING;");

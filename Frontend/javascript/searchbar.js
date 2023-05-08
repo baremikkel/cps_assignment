@@ -27,7 +27,6 @@ function getRatesArr(i) {
     ratesArr = null
     var s = i
     ratesArr = s.split(" ")
-    console.log(ratesArr)
 }
 
 

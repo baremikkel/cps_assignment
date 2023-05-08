@@ -1,30 +1,12 @@
 var myChart;
 var borderColor = [];
-var backgroundColor = [];
 
 function createChart() {
-  /*document.getElementById('myChart').innerHTML = ""
-  var newChart = document.createElement("canvas")
-  newChart.id = "myChart"
-  newChart.style = "width:100%;max-width:800px"
-  document.getElementById('canvas_div').appendChild(newChart)*/
+  displayLatest()
   if (myChart)
     myChart.destroy()
-  if (datesArr != null) {
-    for (var i = 0; i < ratesArr.length; i++) {
-      if (i > 0) {
-        if (ratesArr[i] >= ratesArr[i + 1]) {
+  addColors()
 
-          borderColor.push('#20df4f');
-          backgroundColor.push('#20df4f')
-          
-        } else {
-          borderColor.push('red');
-          backgroundColor.push('#red')
-        }
-      }
-    }
-  }
   var ctx = document.getElementById('myChart').getContext('2d');
   myChart = new Chart(ctx, {
     type: 'line',
@@ -34,6 +16,7 @@ function createChart() {
         label: '1$ in chosen currency',
         data: ratesArr,
         borderColor: borderColor,
+        backgroundColor:'#0e0e0e',
         pointRadius: 0.2
       }]
     },
@@ -50,3 +33,23 @@ function createChart() {
   });
 }
 
+function addColors(){
+  if (datesArr != null) {
+    for (var i = 0; i < ratesArr.length; i++) {
+      if (i > 0) {
+        if (ratesArr[i] >= ratesArr[i + 1]) {
+
+          borderColor.push('#20df4f');
+          
+        } else {
+          borderColor.push('red');
+        }
+      }
+    }
+  }
+}
+
+function displayLatest(){
+  var date = datesArr.slice(-1)
+  let i = document.getElementById("latest_rate").textContent = datesArr[datesArr.length-2] + " " + ratesArr[ratesArr.length-2]
+}

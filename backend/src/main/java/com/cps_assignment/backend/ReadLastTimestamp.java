@@ -13,6 +13,7 @@ import java.util.Scanner;
  * @author bare.mikkel, tiomann99
  */
 public class ReadLastTimestamp {
+    private static ReadLastTimestamp instance;
     private String API_KEY = "6a923f87ddbd476b8889e32091ad40ee"; //2f68cc286ef546b2aa09fbac10e33503
     private int ONE_DAY_IN_MILLIS = 86400000;
 
@@ -85,6 +86,13 @@ public class ReadLastTimestamp {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ReadLastTimestamp getInstance() {
+        if (instance == null) {
+            instance = new ReadLastTimestamp();
+        }
+        return instance;
     }
 
 }
