@@ -20,7 +20,6 @@ public class JSConnection { //Prøver at skabe en connection
         StringBuilder message = new StringBuilder();
         try {
                 ResultSet values = db.SelectFromTableWithCondition("lastexchange", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
-                //ResultSet values = db.SelectFromTable("lastexchange", "exchangerates");
                 while (values.next()) {
                     message.append(values.getString("lastexchange"));
                     message.append(" ");
@@ -71,17 +70,13 @@ public class JSConnection { //Prøver at skabe en connection
     @PostMapping("/wantedSymbol")
     public String retrieveChosenOption(@RequestBody String data) {
         choice = data;
-        ReadLastTimestamp r = new ReadLastTimestamp();
+        ReadLastTimestamp.getInstance();
      return "success";
     }
 
 
     public static class SendData {
         private String message;
-
-        public String getMessage() {
-            return message;
-        }
 
         public void setMessage(String message) {
             this.message = message;

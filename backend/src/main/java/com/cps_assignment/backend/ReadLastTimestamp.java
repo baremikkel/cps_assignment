@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 /**
- * This method is used to collect data from the api even if application has been offline for some time.
+ * This class is used to collect data from the api even if application has been offline for some time.
  * @author bare.mikkel, tiomann99
  */
 public class ReadLastTimestamp {

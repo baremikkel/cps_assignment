@@ -3,7 +3,7 @@ let datesArr
 let ratesArr
 
 
-function getSymbolArr(i) {
+function insertSymbolArr(i) {
     var s = i
     arr = s.split(" ");
 
@@ -18,12 +18,12 @@ function getSymbolArr(i) {
     } 
 }
 
-function getDatesArr(i) {
-    datesArr = null;
+function insertDatesArr(i) {
+    datesArr = null
     var s = i
     datesArr = s.split(" ")
 }
-function getRatesArr(i) {
+function insertRatesArr(i) {
     ratesArr = null
     var s = i
     ratesArr = s.split(" ")
