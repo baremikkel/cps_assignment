@@ -2,12 +2,16 @@ package com.cps_assignment.backend;
 
 import java.sql.*;
 
+/**
+ * @author Baremikkel, Tiomann99
+ * Connects to database and allows the system to write/read from said.
+ */
 public class DBCommunicator {
     private Connection conn = null;
     private String dbname = "cps";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String user = "postgres";
-    private String password = "Olsen2001";
+    private String password = "Forward526040";
 
     protected static DBCommunicator db;
 
@@ -51,13 +55,14 @@ public class DBCommunicator {
         return set;
     }
 
-    protected static DBCommunicator getDatabase() throws SQLException { //Singleton da vi ikke har brug for at forbinde mere end en gang til db
+    protected static DBCommunicator getDatabase() throws SQLException {
+        //Singleton da vi ikke har brug for at forbinde mere end en gang til db
         if (db == null) {
             db = new DBCommunicator();
         }
         return db;
     }
-
+    //The following method was intended to automate the process of setting up the database and seeding it.
     protected void integrateDataBase() {
         boolean dbExists;
         String seedPath = "backend/src/main/java/com/cps_assignment/backend/assets/sql/";

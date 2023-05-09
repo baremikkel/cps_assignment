@@ -60,8 +60,8 @@ function displayLatest() {
   //document.getElementById("latest_rate").textContent = datesArr[datesArr.length - 2] + ":" + ratesArr[ratesArr.length - 2]
   let symbol = document.getElementById("currencyChoice").value
   let date = datesArr[datesArr.length - 2]
-  let index = ratesArr[ratesArr.length - 5].indexOf(".") //finds the decimal index
-  let rate = ratesArr[ratesArr.length - 5].substring(0,index+2) //trims around said index
+  let index = ratesArr[ratesArr.length - 2].indexOf(".") //finds the decimal index
+  let rate = ratesArr[ratesArr.length - 2].substring(0,index+3) //trims two decimals around said index
   document.getElementById("latest_rate").textContent = "One USD is " + rate + " " + symbol + " as of " + date
 
 }

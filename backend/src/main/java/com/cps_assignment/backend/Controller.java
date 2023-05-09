@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 /**
  * @author Baremikkel, tiomann99
+ * Controls system
  */
 @SpringBootApplication
 @Import(CorsConfig.class)
@@ -20,14 +21,15 @@ public class Controller {
     public static void main(String[] args) throws Exception { // Pilot
         SpringApplication.run(Controller.class, args);
         ReadLastTimestamp.getInstance(); //Start program
-        //seedDataToDB(); //only run collectData when sqlseeding, will result in duplicated data.
+        //seedDataToDB(); //only run collectData when sqlseeding, can result in duplicated data.
     }
     private static void seedDataToDB(){
         try {
             DBCommunicator db = DBCommunicator.getDatabase();
             File myObj = new File("backend/src/main/java/com/cps_assignment/backend/assets/sql/db_exchangerates_table.sql");
             Scanner myReader = new Scanner(myObj);
-            int alterCounter = 0;
+            System.out.println("Seeding...");
+            int alterCounter = 1;
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 db.UpdateTable(data);

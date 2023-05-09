@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
-
+/**
+ * @author Baremikkel, Tiomann99
+ * Creates a connection between the frontend JS and backend Java.
+ */
 @RestController
 public class JSConnection { //Prøver at skabe en connection
     private String choice = "";
@@ -82,6 +85,10 @@ public class JSConnection { //Prøver at skabe en connection
         public void setMessage(String message) {
             this.message = message;
         }
+
+        public String getMessage() { //although it appears unused, this is vital for the front end
+            return message;
+        };
     }
 
 }

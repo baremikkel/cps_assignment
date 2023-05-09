@@ -10,11 +10,11 @@ import java.util.Scanner;
 
 /**
  * This class is used to collect data from the api even if application has been offline for some time.
- * @author bare.mikkel, tiomann99
+ * @author Baremikkel, Tiomann99
  */
 public class ReadLastTimestamp {
     private static ReadLastTimestamp instance;
-    private String API_KEY = "6a923f87ddbd476b8889e32091ad40ee"; //2f68cc286ef546b2aa09fbac10e33503
+    private String API_KEY = "6a923f87ddbd476b8889e32091ad40ee";
     private int ONE_DAY_IN_MILLIS = 86400000;
 
     public ReadLastTimestamp() {

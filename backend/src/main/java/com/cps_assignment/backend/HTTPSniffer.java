@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 /**
  * This class sends requests and receives responses from the api, extracts the new values and stores them in the database
- * @author bare.mikkel
+ * @author Baremikkel
  */
 
 @RestController
