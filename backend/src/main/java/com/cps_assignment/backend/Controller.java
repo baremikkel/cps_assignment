@@ -20,7 +20,7 @@ public class Controller {
 
     public static void main(String[] args) throws Exception { // Pilot
         SpringApplication.run(Controller.class, args);
-        ReadLastTimestamp.getInstance(); //Start program
+        ReadLastTimestamp.getInstance().checkLastTimestamp("backend/src/main/java/com/cps_assignment/backend/assets/last_timestamp.txt"); //Start program
         //seedDataToDB(); //only run collectData when sqlseeding, can result in duplicated data.
     }
     private static void seedDataToDB(){

@@ -11,7 +11,7 @@ public class DBCommunicator {
     private String dbname = "cps";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String user = "postgres";
-    private String password = "Forward526040";
+    private String password = "Olsen2001";
 
     protected static DBCommunicator db;
 
@@ -20,7 +20,7 @@ public class DBCommunicator {
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connected");
         } catch (SQLException exception) {
-            System.out.println("fuck you: " + exception.getMessage());
+            System.out.println(exception.getMessage());
         }
 
     }
@@ -31,7 +31,6 @@ public class DBCommunicator {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
     public ResultSet SelectFromTable(String column, String table) { // Henter det data som man ønsker fra hvilken tabel
         ResultSet set = null;

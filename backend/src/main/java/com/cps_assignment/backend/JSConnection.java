@@ -74,7 +74,7 @@ public class JSConnection { //Prøver at skabe en connection
     @PostMapping("/wantedSymbol")
     public String retrieveChosenOption(@RequestBody String data) {
         choice = data;
-        ReadLastTimestamp.getInstance();
+        ReadLastTimestamp.getInstance().checkLastTimestamp("backend/src/main/java/com/cps_assignment/backend/assets/last_timestamp.txt");
      return "success";
     }
 
