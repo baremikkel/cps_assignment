@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 @RestController
 public class JSConnection { //Prøver at skabe en connection
@@ -38,7 +39,7 @@ public class JSConnection { //Prøver at skabe en connection
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
-            if (choice != "") {
+            if (!Objects.equals(choice, "")) {
                 ResultSet values = db.SelectFromTableWithCondition("exchangevalue", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
                 while (values.next()) {
                     message.append(values.getString("exchangevalue"));

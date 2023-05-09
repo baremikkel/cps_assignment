@@ -19,7 +19,7 @@ public class Controller {
 
     public static void main(String[] args) throws Exception { // Pilot
         SpringApplication.run(Controller.class, args);
-        ReadLastTimestamp.getInstance();
+        ReadLastTimestamp.getInstance(); //Start program
         //seedDataToDB(); //only run collectData when sqlseeding, will result in duplicated data.
     }
     private static void seedDataToDB(){

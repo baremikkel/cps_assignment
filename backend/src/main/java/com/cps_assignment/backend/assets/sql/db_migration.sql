@@ -6,7 +6,6 @@ CREATE TABLE currencies (
     currencyId SERIAL PRIMARY KEY,
     currencySymbol VARCHAR(50) UNIQUE NOT NULL
 );
-DROP TABLE exchangerates;
 CREATE TABLE exchangeRates (
     exchangeId SERIAL PRIMARY KEY,
     currencyId INTEGER NOT NULL REFERENCES currencies(currencyId),
