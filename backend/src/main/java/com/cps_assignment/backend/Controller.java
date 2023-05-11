@@ -17,7 +17,6 @@ import java.util.Scanner;
 @Import(CorsConfig.class)
 public class Controller {
 
-
     public static void main(String[] args) throws Exception { // Pilot
         SpringApplication.run(Controller.class, args);
         ReadLastTimestamp.getInstance().checkLastTimestamp("backend/src/main/java/com/cps_assignment/backend/assets/last_timestamp.txt"); //Start program

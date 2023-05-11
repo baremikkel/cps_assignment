@@ -11,7 +11,7 @@ public class DBCommunicator {
     private String dbname = "cps";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String user = "postgres";
-    private String password = "Olsen2001";
+    private String password = "Forward526040";
 
     protected static DBCommunicator db;
 
