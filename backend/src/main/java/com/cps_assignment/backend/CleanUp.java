@@ -13,8 +13,8 @@ public class CleanUp {
     public static void main(String[] args) {
         try {
             DBCommunicator db = new DBCommunicator();
-            ResultSet set1 = db.SelectFromTable("*","postgres");
-            ResultSet set2 = db.SelectFromTable("*","postgres");
+            ResultSet set1 = db.SelectFromTable("*","exchangerates");
+            ResultSet set2 = db.SelectFromTable("*","exchangerates");
             int deletedCount = 0;
             while (set1.next()) {
                 int id1 = set1.getInt("exchangeid");
