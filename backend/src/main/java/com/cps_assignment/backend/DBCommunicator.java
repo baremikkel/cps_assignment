@@ -61,6 +61,18 @@ public class DBCommunicator {
         }
         return db;
     }
+
+    public ResultSet ScrollableQuery(String wholeQuery) {
+        //this makes a scrollable resultSet, the functionality is only used in the cleanup class
+        ResultSet set;
+        try {
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            set =  stmt.executeQuery(wholeQuery);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return set;
+    }
     //The following method was intended to automate the process of setting up the database and seeding it.
     protected void integrateDataBase() {
         boolean dbExists;
