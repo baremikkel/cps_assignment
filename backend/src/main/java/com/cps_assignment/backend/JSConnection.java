@@ -15,12 +15,14 @@ import java.util.Objects;
 @RestController
 public class JSConnection { //Prøver at skabe en connection
     private String choice = "";
+    DBCommunicator db = DBCommunicator.getDatabase();
 
-   // @CrossOrigin(origins = "localhost:5500")
+    public JSConnection() throws SQLException {
+    }
+
     @GetMapping("/exchangedates")
-    public SendData getDates() throws SQLException {
+    private SendData getDates() throws SQLException {
         SendData data = new SendData();
-        DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
                 ResultSet values = db.SelectFromTableWithCondition("lastexchange", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
@@ -37,9 +39,8 @@ public class JSConnection { //Prøver at skabe en connection
     }
 
     @GetMapping("/exchangevalues")
-    public SendData getExchangevalues() throws SQLException {
+    private SendData getExchangevalues() throws SQLException {
         SendData data = new SendData();
-        DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
             if (!Objects.equals(choice, "")) {
@@ -56,9 +57,8 @@ public class JSConnection { //Prøver at skabe en connection
     }
 
     @GetMapping("/symbols")
-    public SendData getCurrencySymbols() throws SQLException {
+    private SendData getCurrencySymbols() throws SQLException {
         SendData data = new SendData();
-        DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
             ResultSet symbols = db.SelectFromTable("currencysymbol", "currencies ORDER BY currencysymbol");
@@ -72,7 +72,7 @@ public class JSConnection { //Prøver at skabe en connection
     }
 
     @PostMapping("/wantedSymbol")
-    public String retrieveChosenOption(@RequestBody String data) {
+    private String retrieveChosenOption(@RequestBody String data) {
         choice = data;
         ReadLastTimestamp.getInstance().checkLastTimestamp("backend/src/main/java/com/cps_assignment/backend/assets/last_timestamp.txt");
      return "success";
