@@ -15,7 +15,7 @@ public class DBCommunicator {
 
     protected static DBCommunicator db;
 
-    public DBCommunicator() throws SQLException { //Når man initiere communicatoren forbinder den til db.
+    public DBCommunicator() throws SQLException { //When initializing the communicator it connects to the db.
         try {
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connected");
@@ -24,7 +24,7 @@ public class DBCommunicator {
         }
 
     }
-    public void UpdateTable(String cmd){ //Crud command Update via parameter
+    public void updateTable(String cmd){ //Crud command Update via parameter.
         try{
             PreparedStatement insert = conn.prepareStatement(cmd);
             insert.execute();
@@ -32,7 +32,7 @@ public class DBCommunicator {
             System.out.println(e.getMessage());
         }
     }
-    public ResultSet SelectFromTable(String column, String table) { // Henter det data som man ønsker fra hvilken tabel
+    public ResultSet selectFromTable(String column, String table) { //Collects data from chosen table.
         ResultSet set = null;
         try {
             set = conn.createStatement().executeQuery("SELECT "+column+" FROM " + table);
@@ -42,8 +42,8 @@ public class DBCommunicator {
         return set;
     }
 
-    public ResultSet SelectFromTableWithCondition(String column, String table, String condition, String currency) {
-        // Virker på samme måde som metoden over, men har en WHERE condition i tilfældet man har brug for det
+    public ResultSet selectFromTableWithCondition(String column, String table, String condition, String currency) {
+        //Same function as above but it allows for WHERE statements.
         ResultSet set = null;
         try {
             set = conn.createStatement().executeQuery("SELECT "+column+" FROM " + table + condition + currency +"'");
@@ -55,15 +55,15 @@ public class DBCommunicator {
     }
 
     protected static DBCommunicator getDatabase() throws SQLException {
-        //Singleton da vi ikke har brug for at forbinde mere end en gang til db
+        //Singleton as we don't need to connect more than once to the db.
         if (db == null) {
             db = new DBCommunicator();
         }
         return db;
     }
 
-    public ResultSet ScrollableQuery(String wholeQuery) {
-        //this makes a scrollable resultSet, the functionality is only used in the cleanup class
+    public ResultSet scrollableQuery(String wholeQuery) {
+        //This makes a scrollable resultSet, the functionality is only used in the cleanup class.
         ResultSet set;
         try {
             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -87,14 +87,14 @@ public class DBCommunicator {
 
         String queryFunction = "{ ? = call checkExistence(?) }";
 
-        try { //tries to create a sql function that lets us check for already existing databases
+        try { //Tries to create a sql function that lets us check for already existing databases.
             Statement stmt = conn.createStatement();
             stmt.executeQuery(createFunction);
         } catch (SQLException e) {
             throw new RuntimeException("Could not create PL/pgSQL function. >:(\n" + e.getMessage());
         }
 
-        try { //tries to find a database named the same as dbName
+        try { //Tries to find a database named the same as dbName.
             CallableStatement stmt = conn.prepareCall(queryFunction);
             stmt.setString(1, dbname);
             stmt.registerOutParameter(2, Types.BOOLEAN);
@@ -104,11 +104,11 @@ public class DBCommunicator {
             throw new RuntimeException("Could not call PL/pgSQL function. >:(\n" + e.getMessage());
         }
 
-        if (dbExists == false) { //if there was no database with that name, we create one
+        if (dbExists == false) { //If there was no database with that name, we create one.
             String createDbQuery = "CREATE DATABASE " + dbname;
 
             try {
-                Class.forName("org.postgresql.Driver"); //loads database connection driver
+                Class.forName("org.postgresql.Driver"); //Loads database connection driver.
                 conn = DriverManager.getConnection(url, user, password);
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(createDbQuery);
@@ -122,7 +122,7 @@ public class DBCommunicator {
         } else {
             System.out.println("You already have a database named " + dbname +"!");
         }
-        //now we have the database created, we need to create the tables, pog champ almost there!
+        //Now we have the database created, we need to create the tables, pog champ almost there!
         try {
             conn.createStatement().executeQuery("CREATE TABLE currencies (currencyId SERIAL PRIMARY KEY, currencyName VARCHAR(255) UNIQUE NOT NULL, currencySymbol VARCHAR(50) UNIQUE NOT NULL);");
             conn.createStatement().executeQuery("CREATE TABLE exchangeRates (exchangeId SERIAL PRIMARY KEY, currencyId INTEGER NOT NULL REFERENCES currencies(currencyId), exchangeValue DECIMAL NOT NULL, lastExchange VARCHAR(50) NOT NULL\n);");
@@ -130,6 +130,6 @@ public class DBCommunicator {
         } catch (SQLException e) {
             throw new RuntimeException("Could not create tables. >:(\n" + e.getMessage());
         }
-
+        //Still missing actual seeding methods. Could be done in the future.
     }
 }

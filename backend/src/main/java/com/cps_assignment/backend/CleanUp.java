@@ -1,13 +1,12 @@
 package com.cps_assignment.backend;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 /**
  * @author Tioman99
  * This is a cheap solution for removing duplicates in the exchangerates table
+ * Spolier: it doesn't work yet
  */
 
 public class CleanUp {
@@ -17,13 +16,16 @@ public class CleanUp {
             String currenciesQuery = "SELECT currencyid FROM currencies ORDER by currencyid";
             String exchangeQuery = "SELECT exchangeid, lastexchange, exchangevalue FROM exchangerates ";
             String exchangeOrder = " ORDER by exchangeid DESC";
-            ResultSet set1 = db.ScrollableQuery(currenciesQuery);
+            ResultSet set1 = db.scrollableQuery(currenciesQuery);
+            ResultSet set2;
+            ResultSet set3;
             int deletedCount = 0;
             System.out.println("Commencing cleanup...");
             while (set1.next()) {
                 int currencyid = set1.getInt("currencyid");
-                ResultSet set2 = db.ScrollableQuery(exchangeQuery + "WHERE currencyid=" + currencyid + exchangeOrder);
-                ResultSet set3 = db.ScrollableQuery(exchangeQuery + "WHERE currencyid=" + currencyid + exchangeOrder);
+                set2 = db.scrollableQuery(exchangeQuery + "WHERE currencyid=" + currencyid + exchangeOrder);
+                set3 = db.scrollableQuery(exchangeQuery + "WHERE currencyid=" + currencyid + exchangeOrder);
+                System.out.println("Currencyid: " + currencyid);
                 while (set2.next()) {
                     int id1 = set2.getInt("exchangeid");
                     String timestamp1 = set2.getString("lastexchange");
@@ -34,6 +36,7 @@ public class CleanUp {
                         double value2 = set3.getDouble("exchangevalue");
                         if (id1 != id2 && timestamp1.equals(timestamp2) && value1 == value2) {
                             System.out.println("Deleted data point w. id: " + id2);
+                            db.updateTable("DELETE FROM exchangerates WHERE exchangeid=" + id2);
                             deletedCount++;
                             break;
                         }

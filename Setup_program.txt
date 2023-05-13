@@ -3,26 +3,27 @@ MAKE SURE THAT JAVA SPRING AND VS CODE 'Live Server' Extention is using the defa
 
 
 
--> Go to the DBCommunicator Class and change the attributes to match your own
+-> Go to the DBCommunicator Class and change the attributes to match your own.
 
--> Go to the db_migration.sql file in the assets/sql package-folder
+-> Go to the 'db_migration.sql' file in the assets/sql package-folder.
 
--> Try to run the 3 first lines in the file - if it don't work just make sure that you manualy are connected to the database in the Intellij database window under 'View'->'Tool Windows'->'Database'.
-	In case that there already is tables back them up if needed and drop them.
-	Now run the rest of the content of the sql file.
+-> Try to run the 3 first lines in the file - if it don't work just make sure that you are connected
+   to the database in the Intellij database window under 'View'->'Tool Windows'->'Database'.
+   In case that you already have a database under same name, back it up and drop the tables.
+   Now run the rest of the content of the migration sql file.
 
--> Go to the db_currencies_table.sql file and run the file.
+-> Go to the db_currencies_table.sql file and run it.
 
--> Copy the from the 'last_timestamp_backup.txt then replace the text in 'last_timestamp.txt' with the text you copied.
+-> Replace the contents of 'last_timestamp.txt' with the text found in 'last_timestamp_backup.txt'.
 
--> Go to the Controller Class and comment out the 'ReadLastTimestamp.getInstance()' in the main method and remove "//" from seedDataToDB() method call.
+-> Go to the Controller Class and comment out 'ReadLastTimestamp.getInstance()' in the main
+   method line 22 and un-comment 'seedDataToDB()' on line 23.
 
 -> Run the program and wait for the "Done with seeding" text in the terminal.
 
--> Comment out the seedDataToDB() method call and remove "//" from 'ReadLastTimestamp.getInstance()' and rerun the program.
+-> Comment out the 'seedDataToDB()' method call, un-comment 'ReadLastTimestamp.getInstance()' and
+   rerun the program.
 
--> Open Visual Studio Code and make sure that the 'Live Server' extention is installed
+-> Live host the program. Can be done in Visual Studio Code if you have 'Live Server' installed.
 
--> Host the live server by pressing on the little "Go Live" icon in the buttom left.
-
--> All currencies only show up if the text matches the options
+-> Search for a supported currency.

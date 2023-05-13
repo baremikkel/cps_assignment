@@ -13,7 +13,7 @@ import java.util.Objects;
  * Creates a connection between the frontend JS and backend Java.
  */
 @RestController
-public class JSConnection { //Prøver at skabe en connection
+public class JSConnection { //Tries to create a connection
     private String choice = "";
 
    // @CrossOrigin(origins = "localhost:5500")
@@ -23,7 +23,7 @@ public class JSConnection { //Prøver at skabe en connection
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
-                ResultSet values = db.SelectFromTableWithCondition("lastexchange", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
+                ResultSet values = db.selectFromTableWithCondition("lastexchange", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
                 while (values.next()) {
                     message.append(values.getString("lastexchange"));
                     message.append(" ");
@@ -43,7 +43,7 @@ public class JSConnection { //Prøver at skabe en connection
         StringBuilder message = new StringBuilder();
         try {
             if (!Objects.equals(choice, "")) {
-                ResultSet values = db.SelectFromTableWithCondition("exchangevalue", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
+                ResultSet values = db.selectFromTableWithCondition("exchangevalue", "exchangerates", " INNER JOIN currencies c ON c.currencyid = exchangerates.currencyid WHERE currencysymbol = '", choice);
                 while (values.next()) {
                     message.append(values.getString("exchangevalue"));
                     message.append(" ");
@@ -61,7 +61,7 @@ public class JSConnection { //Prøver at skabe en connection
         DBCommunicator db = DBCommunicator.getDatabase();
         StringBuilder message = new StringBuilder();
         try {
-            ResultSet symbols = db.SelectFromTable("currencysymbol", "currencies ORDER BY currencysymbol");
+            ResultSet symbols = db.selectFromTable("currencysymbol", "currencies ORDER BY currencysymbol");
             while (symbols.next()) {
                 message.append(symbols.getString("currencysymbol"));
                 message.append(" ");

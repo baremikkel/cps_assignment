@@ -37,7 +37,7 @@ public class HTTPSniffer {
         currencyExtractor(String.valueOf(content));
     }
     public void currencyExtractor(String jsonString) {
-        //extracts all the key value pairs in the JSON array that was the response from the api
+        //Extracts all the key value pairs in the JSON array that was the response from the api.
         JSONObject obj = new JSONObject(jsonString);
         JSONObject rates = obj.getJSONObject("rates");
         Iterator<String> keys = rates.keys();
@@ -49,11 +49,11 @@ public class HTTPSniffer {
     }
 
     private void addToDatabase(String key, double rate) {
-        //Adds the data to the database, and is set up in the way if a new currency is supported in the api the database won't have problems storing the data
+        //Adds the data to the database, and is set up in the way if a new currency is supported in the api the database won't have problems storing the data.
         try {
             db = DBCommunicator.getDatabase();
-            db.UpdateTable("INSERT INTO currencies (currencysymbol) VALUES ('"+ key +"') ON CONFLICT (currencysymbol) DO NOTHING;");
-            db.UpdateTable("INSERT INTO exchangeRates (currencyid, exchangevalue, lastexchange) VALUES(( SELECT currencyid FROM currencies WHERE currencysymbol = '"+ key +"'), '"+ rate +"', '" + date +"' );");
+            db.updateTable("INSERT INTO currencies (currencysymbol) VALUES ('"+ key +"') ON CONFLICT (currencysymbol) DO NOTHING;");
+            db.updateTable("INSERT INTO exchangeRates (currencyid, exchangevalue, lastexchange) VALUES(( SELECT currencyid FROM currencies WHERE currencysymbol = '"+ key +"'), '"+ rate +"', '" + date +"' );");
         } catch (SQLException e) {
             System.out.println("Fuck you thats why: " + e.getMessage());
         }
