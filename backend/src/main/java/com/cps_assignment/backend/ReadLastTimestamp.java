@@ -19,7 +19,7 @@ public class ReadLastTimestamp {
     private final int ONE_DAY_IN_MILLIS = 86400000;
 
     public void checkLastTimestamp(String filename) {
-        //It then checks if the current time and the time from the textfile is the same and then desides if the api should be called or not
+        //It then checks if the current time and the time from the text file is the same and then decides if the api should be called or not.
         long timestampNow = convertMillisToUTC(System.currentTimeMillis());
         long lastTimestamp = Long.parseLong(readFromFile(filename));
         if (timestampNow > lastTimestamp) {
@@ -30,22 +30,22 @@ public class ReadLastTimestamp {
     }
 
     long convertMillisToUTC(long timestampNow) {
-        //This method take the millis and converts it into the timezone for Coordinated Universal Time (UTC) and returns the present day in millis
+        //This method take the millis and converts it into the timezone for Coordinated Universal Time (UTC) and returns the present day in millis.
         OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(timestampNow), ZoneOffset.ofHours(2))
                 .withOffsetSameInstant(ZoneOffset.UTC)
-                .truncatedTo(ChronoUnit.DAYS); //We then converts the millis to only include days since it was decided that the exchange rate don't change a lot over a day, and it would ease the amount the api had to be called
+                .truncatedTo(ChronoUnit.DAYS); //We then convert the millis to only include days since it was decided that the exchange rate don't change a lot over a day, and it would ease the amount the api had to be called.
         return offsetDateTime.toInstant().toEpochMilli();
     }
 
     private void convertMillisToUTCDate(long timestampNow, long lastTimestamp) {
-        //Converts the newly converted millis-time to LocalDate and sends them to the SendGetRequestToApi
+        //Converts the newly converted millis-time to LocalDate and sends them to the SendGetRequestToApi.
         LocalDate startDate = Instant.ofEpochMilli(lastTimestamp).atZone(ZoneId.of("UTC")).toLocalDate();
         LocalDate endDate = Instant.ofEpochMilli(timestampNow + ONE_DAY_IN_MILLIS).atZone(ZoneId.of("UTC")).toLocalDate();
         sendGetRequestToApi(startDate, endDate);
     }
 
     private void sendGetRequestToApi(LocalDate startDate, LocalDate endDate) {
-        //makes sure to get the rate for all the missing dates
+        //Makes sure to get the rate for all the missing dates.
         HTTPSniffer sniffer = new HTTPSniffer();
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             try {
@@ -56,7 +56,7 @@ public class ReadLastTimestamp {
         }
     }
 
-    public String readFromFile(String filename) {
+    public String readFromFile(String filename) { //Standard scanner.
         String data = "";
         try {
             File myObj = new File(filename);
@@ -72,7 +72,7 @@ public class ReadLastTimestamp {
         return data;
     }
 
-    void updateFile(String filename, long lastTimestamp) {
+    void updateFile(String filename, long lastTimestamp) { //Standard writer.
         try {
             FileWriter myWriter = new FileWriter(filename);
             myWriter.write(String.valueOf(lastTimestamp)); //should be a string
@@ -83,7 +83,7 @@ public class ReadLastTimestamp {
         }
     }
 
-    public static ReadLastTimestamp getInstance() {
+    public static ReadLastTimestamp getInstance() { //Calls the reader.
         if (instance == null) {
             instance = new ReadLastTimestamp();
         }
