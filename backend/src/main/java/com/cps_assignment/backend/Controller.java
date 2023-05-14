@@ -10,18 +10,19 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
- * @author Baremikkel, tiomann99
+ * @author Baremikkel, Tiomann99
  * Controls system
  */
+
 @SpringBootApplication
 @Import(CorsConfig.class)
 public class Controller {
 
 
-    public static void main(String[] args) throws Exception { // Pilot
+    public static void main(String[] args) throws Exception { //Pilot
         SpringApplication.run(Controller.class, args);
         ReadLastTimestamp.getInstance().checkLastTimestamp("backend/src/main/java/com/cps_assignment/backend/assets/last_timestamp.txt"); //Start program
-        //seedDataToDB(); //only run collectData when sqlseeding, can result in duplicated data.
+        //seedDataToDB(); //Only run collectData when sqlseeding, can result in duplicated data.
     }
     private static void seedDataToDB(){
         try {
