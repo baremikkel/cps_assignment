@@ -10,9 +10,9 @@ import java.sql.*;
 public class DBCommunicator {
     private Connection conn = null;
     private String dbname = "cps";
-    private String url = "jdbc:postgresql://localhost:5432/postgres";
-    private String user = "postgres";
-    private String password = "Olsen2001";
+    private String url = "x"; //"jdbc:postgresql://localhost:5432/postgres"
+    private String user = "x";
+    private String password = "x";
 
     protected static DBCommunicator db;
 
