@@ -13,7 +13,7 @@ import java.util.Objects;
  * Creates a connection between the frontend JS and backend Java.
  */
 @RestController
-public class JSConnection { //Prøver at skabe en connection
+public class JSConnection { //Tries to connect.
     private String choice = "";
     DBCommunicator db = DBCommunicator.getDatabase();
 
@@ -21,7 +21,7 @@ public class JSConnection { //Prøver at skabe en connection
     }
 
     @GetMapping("/exchangedates")
-    private SendData getDates() throws SQLException {
+    private SendData getDates() throws SQLException { //Collects the dates.
         SendData data = new SendData();
         StringBuilder message = new StringBuilder();
         try {
@@ -39,7 +39,7 @@ public class JSConnection { //Prøver at skabe en connection
     }
 
     @GetMapping("/exchangevalues")
-    private SendData getExchangevalues() throws SQLException {
+    private SendData getExchangevalues() throws SQLException { //Collects the exchange values.
         SendData data = new SendData();
         StringBuilder message = new StringBuilder();
         try {
@@ -57,7 +57,7 @@ public class JSConnection { //Prøver at skabe en connection
     }
 
     @GetMapping("/symbols")
-    private SendData getCurrencySymbols() throws SQLException {
+    private SendData getCurrencySymbols() throws SQLException { //Collects the currency simbols.
         SendData data = new SendData();
         StringBuilder message = new StringBuilder();
         try {
@@ -72,14 +72,14 @@ public class JSConnection { //Prøver at skabe en connection
     }
 
     @PostMapping("/wantedSymbol")
-    private String retrieveChosenOption(@RequestBody String data) {
+    private String retrieveChosenOption(@RequestBody String data) { //Retrieves the currency chosen in the frontend.
         choice = data;
         ReadLastTimestamp.getInstance().checkLastTimestamp("backend/src/main/java/com/cps_assignment/backend/assets/last_timestamp.txt");
      return "success";
     }
 
 
-    public static class SendData {
+    public static class SendData { //Makes data available for frontend.
         private String message;
 
         public void setMessage(String message) {
@@ -88,7 +88,7 @@ public class JSConnection { //Prøver at skabe en connection
 
         public String getMessage() { //although it appears unused, this is vital for the front end
             return message;
-        };
+        }; //Appears unused but is critical.
     }
 
 }
