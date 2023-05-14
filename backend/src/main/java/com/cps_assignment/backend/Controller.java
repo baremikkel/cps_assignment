@@ -33,10 +33,10 @@ public class Controller {
             int alterCounter = 1;
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                db.UpdateTable(data);
+                db.updateTable(data);
                 alterCounter++;
             }
-            db.UpdateTable("ALTER SEQUENCE exchangerates_exchangeid_seq RESTART WITH "+alterCounter);
+            db.updateTable("ALTER SEQUENCE exchangerates_exchangeid_seq RESTART WITH "+alterCounter);
             System.out.println("Done with seeding");
             myReader.close();
         } catch (FileNotFoundException e) {

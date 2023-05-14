@@ -41,10 +41,10 @@ public class ReadLastTimestamp {
         //Converts the newly converted millis-time to LocalDate and sends them to the SendGetRequestToApi
         LocalDate startDate = Instant.ofEpochMilli(lastTimestamp).atZone(ZoneId.of("UTC")).toLocalDate();
         LocalDate endDate = Instant.ofEpochMilli(timestampNow + ONE_DAY_IN_MILLIS).atZone(ZoneId.of("UTC")).toLocalDate();
-        SendGetRequestToApi(startDate, endDate);
+        sendGetRequestToApi(startDate, endDate);
     }
 
-    private void SendGetRequestToApi(LocalDate startDate, LocalDate endDate) {
+    private void sendGetRequestToApi(LocalDate startDate, LocalDate endDate) {
         //makes sure to get the rate for all the missing dates
         HTTPSniffer sniffer = new HTTPSniffer();
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {

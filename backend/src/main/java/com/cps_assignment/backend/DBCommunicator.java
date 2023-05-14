@@ -25,7 +25,7 @@ public class DBCommunicator {
         }
 
     }
-    public void UpdateTable(String cmd){ //Crud command Update via parameter.
+    public void updateTable(String cmd){ //Crud command Update via parameter.
         try{
             PreparedStatement insert = conn.prepareStatement(cmd);
             insert.execute();
@@ -33,7 +33,7 @@ public class DBCommunicator {
             System.out.println(e.getMessage());
         }
     }
-    public ResultSet SelectFromTable(String column, String table) { //Collects data from chosen table.
+    public ResultSet selectFromTable(String column, String table) { //Collects data from chosen table.
         ResultSet set = null;
         try {
             set = conn.createStatement().executeQuery("SELECT "+column+" FROM " + table);
@@ -43,7 +43,7 @@ public class DBCommunicator {
         return set;
     }
 
-    public ResultSet SelectFromTableWithCondition(String column, String table, String condition, String currency) {
+    public ResultSet selectFromTableWithCondition(String column, String table, String condition, String currency) {
         //Same as the above function but allows for WHERE statement.
         ResultSet set = null;
         try {
