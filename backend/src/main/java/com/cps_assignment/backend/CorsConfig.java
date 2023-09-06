@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author Baremikkel
  * Allows HTTP call from chosen adresses.
  */
+
 @Configuration
 public class CorsConfig {
 
